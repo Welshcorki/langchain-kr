@@ -57,8 +57,15 @@ class GradioChatApp:    # gradio 챗앱이 동작되는 방식
         )
         
         # 대화 버퍼 메모리 생성
-        memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
+        # memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
         
+        # ConversationSummaryMemory 사용
+        memory = ConversationSummaryMemory(
+            llm=llm, # 요약을 위해 LLM 모델 전달
+            return_messages=True,
+            memory_key="chat_history",
+        )
+
         # 대화 체인 생성
         self.conversation_chain = MyConversationChain(llm, prompt, memory)
     
